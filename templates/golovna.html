@@ -1,0 +1,121 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Головна</title>
+
+</head>
+<body>
+{% block content %}
+    <div id = "content">
+            <div class = "oyh">
+                szdfxgchbfvdcxzcdfbgbfdcsxngbfvdcxnbvcx
+          </div>
+    </div>
+        <script type = "text/babel">
+            var CONTACTS = [{
+                id: 1,
+                name: "Jane Kravchenko",
+                phonenumber: "+380634827851",
+                image: "https://pp.vk.me/c623326/v623326259/45a81/RTDJZoNKm6k.jpg"
+
+            },
+                {
+                id: 2,
+                name: "Alex Pyvovar",
+                phonenumber: "+380631824451",
+                image: "https://pp.vk.me/c630716/v630716517/2c315/FIaORfEvvOQ.jpg"
+
+
+            },
+                {
+                id: 3,
+                name: "Ksenia Yagorlitskaya",
+                phonenumber: "+380937043114",
+                image: "https://pp.vk.me/c631325/v631325358/48b76/6BNDPAbXPh4.jpg"
+
+            },
+                    {
+                id: 4,
+                name: "Liana Belogura",
+                phonenumber: "+30636480565",
+                image: "https://pp.vk.me/c638225/v638225160/a732/jOie4LbNOPc.jpg"
+
+            },
+
+            ];
+            var Contact = React.createClass({
+                render: function(){
+                    return <li className="contact">
+
+                        <img className="contact-image" src={this.props.image} width="60px" height="60px"/>
+                        <div className="contact-info">
+                        <div className="contact-name">{this.props.name}</div>
+                        <div className="number">{this.props.phonenumber}</div></div>
+
+                        </li>
+                }
+            });
+            var ContactList = React.createClass({
+                getInitialState: function(){
+                   return { displayedContacts: CONTACTS};
+
+                },
+                handleSearch: function(event){
+                    var searchQuery = event.target.value.toLowerCase();
+                    console.log(displayedContacts);
+                    var displayedContacts = CONTACTS.filter(
+                            function(el){
+                                var searchValue = el.name.toLowerCase();
+                                return searchValue.indexOf(searchQuery) !==  -1;
+
+                                });
+                     this.setState({
+                         displayedContacts:displayedContacts
+
+                     });
+
+
+                },
+                render: function(){
+                    return  (<div className = "panel" id="panel">
+                        <div className = "panel-body">
+                            <div className="contacts">
+                                <input type = "text" className = "search-field" onChange = {this.handleSearch}/>
+                                <ul className="contacts-list">
+                                    {
+                                        this.state.displayedContacts.map(
+                                          function(el){
+                                              return <Contact key = {el.id} name={el.name} phonenumber = {el.phonenumber} image={el.image}/>;
+                                          }
+                                        )
+                                    }
+                                        </ul>
+                                </div></div></div>
+                    );
+
+                }
+            });
+
+            ReactDOM.render(
+                    <ContactList/>,
+                    document.getElementById("content")
+            );
+
+
+
+        </script>
+    <script>
+    $(function() {
+
+    $("#panel").draggable({
+
+    });});
+    </script>
+
+{% endblock %}
+
+</body>
+</html>

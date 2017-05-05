@@ -1,0 +1,39 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <title>Природо-заповідний фонд України</title>
+      <link rel="stylesheet" type="text/css" href="{% static "wcs/libs/reset.css" %}">
+      <link rel="stylesheet" type="text/css" href="{% static "wcs/libs/960_12_col.css" %}">
+      <link rel="stylesheet" type="text/css" href="{% static "wcs/libs/OpenLayers3/ol.css" %}">
+      <link rel="stylesheet" href="{% static "wcs/libs/bootstrap/css/bootstrap.min.css" %}">
+      <link rel="stylesheet" href="{% static "wcs/libs/fontawesome/css/font-awesome.min.css" %}">
+      <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/south-street/jquery-ui.css">
+      <link rel="stylesheet" type="text/css" href="{% static "wcs/libs/simple-calendar/tcal.css" %}"/>
+      <link rel="stylesheet" href="{% static "wcs/libs/jstree/dist/themes/default/style.min.css" %}"/>
+      <link rel="stylesheet" media="screen" type="text/css" href="{% static "wcs/libs/datepicker/css/datepicker.css" %}" />
+      <link rel="stylesheet" type="text/css" href="{% static "wcs/css/style.css" %}"/>
+      <script src="http://code.jquery.com/jquery-latest.js"></script>
+      <script type="text/javascript" src="{% static "wcs/libs/simple-calendar/tcal_en.js" %}"></script>
+      <script src = "{% static "wcs/libs/jquery-3.1.1.min.js"%}" type = "text/javascript"></script>
+      <script src="{% static "wcs/libs/jquery-ui/jquery-ui.js"%}"></script>
+      <script src="{% static "wcs/libs/OpenLayers3/ol.js"%}"></script>
+      <script src="{% static "wcs/libs/jstree/dist/jstree.min.js"%}"></script>
+      <script src="{% static "wcs/libs/bootstrap/js/bootstrap.min.js"%}" type = 'text/javascript'></script>
+      <script type="text/javascript" src="{% static "wcs/libs/datepicker/js/datepicker.js"%}"></script>
+      <script type="text/javascript" src="{% static "wcs/libs/datepicker/js/eye.js"%}"></script>
+      <script type="text/javascript" src="{% static "wcs/libs/datepicker/js/utils.js"%}"></script>
+</head>
+<body>
+     <a href = 'golovna'>ГОЛОВНА</a>
+     <a href = 'pro_proect'>ПРО ПРОЕКТ</a>
+     <img src = "{% static "wcs/img/logo.png"%}" />
+     <a href = 'karta'>КАРТА</a>
+     <a href = 'dopomoga'>ДОПОМОГА</a>
+     <p>ПОРТАЛ</p>
+     <p>ПРИРОДО-ЗАПОВІДНОГО ФОНДУ УКРАЇНИ</p>
+     <button onClick='window.location = "/karta";'>Перейти до карти</button>
+</body>
+</html>

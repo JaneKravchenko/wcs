@@ -1,0 +1,45 @@
+body{
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/back.png);
+    text-align: center;
+    padding-top: 30px;
+    background-repeat: repeat-x;
+    font-size: 18pt;
+}
+body a{
+    padding-right: 50px;
+    color: #424a19;
+}
+
+body a:hover{
+    color: #274a0c;
+}
+body img{
+    margin-left: -30px;
+    margin-right: 20px;
+}
+
+body p{
+    width: 50%;
+    margin: 0 auto;
+    color: #424a19;
+    font-size: 30pt;
+}
+
+button{
+    border: solid 4px #424a19;
+    width: 500px;
+    height: 150px;
+    background-color: transparent;
+    font-size: 30pt;
+    color: #424a19;
+    margin-top: 300px;
+}
+
+button:hover{
+    background-color: rgba(255, 255, 255, 0.4);
+    border: none;
+
+}
+

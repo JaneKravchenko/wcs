@@ -1,0 +1,131 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Головна</title>
+
+</head>
+<body>
+{% block content %}
+
+    <div class="panel panel-default" id = "panel-map">
+  <div class="panel-body">
+    <div class = "map" id = "map">
+    </div></div></div>
+     <script src="{% static "wcs/js/load_map.js"%}"></script>
+     <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid" id = "nav">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">ПЗФ України</a>
+    </div>
+    <ul class="nav navbar-nav" >
+      <li class="active"><a href="#">Головна</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Карта
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Завантажити PDF</a></li>
+          <li><a href="#">Знайти</a></li>
+          <li><a href="#">Page 1-3</a></li>
+        </ul>
+      </li>
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Об’єкт
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Завантажити PDF</a></li>
+          <li><a href="#">Знайти</a></li>
+          <li><a href="#">Page 1-3</a></li>
+        </ul>
+      </li>
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Завантажити на портал
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Шейп</a></li>
+          <li><a href="#">Растр</a></li>
+          <li><a href="#">Page 1-3</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Про портал</a></li>
+      <li><a href="#">Допомога</a></li>
+    </ul>
+  </div>
+</nav>
+    <div class="panel panel-default" id = "panel-list">
+  <div class="panel-body">
+      <form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Введіть назву об’єкту</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="НПП 'Голосіївський'">
+      <button type="button" class="btn btn-success">Знайти</button>
+  </div> </form>
+     </div></div>
+    <div class="panel panel-default" id = "panel">
+  <div class="panel-body">
+    <div id = "content">
+           <div class="container">
+
+  <ul class="nav nav-tabs" >
+    <li class="active"><a data-toggle="tab" href="#home">Інструменти</a></li>
+    <li><a data-toggle="tab" href="#menu1">Додати</a></li>
+    <li><a data-toggle="tab" href="#menu2">Активні</a></li>
+      <li><a data-toggle="tab" href="#menu2">Легенда</a></li>
+
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+
+        <div id = "instruments_back">
+            <h3>Шторка</h3>
+            <h4>Ви використовуєте функцію шторка. Наведіть на об’єкт, до якого Ви хочете застосувати дану функцію.</h4>
+                 Радіус:
+            <span id="contentSlider"></span> пікселів
+            <div id="slider"></div>
+            <script type = "text/javascript" src = {% static "wcs/js/slider.js" %}></script>
+        <button  onclick = del_lyr()><span class="fa fa-arrow-circle-o-left fa-2x"></span></br>Назад</button></div>
+        <div id = "instruments">
+        <table>
+            <h3>Оберіть дію</h3>
+      <tr>
+    <td><button onclick = del_lyr()><span class="fa fa-eye fa-2x"></span></br>Прозорість</button></td>
+    <td><button onclick = ad_lyr()><span class="fa fa-dot-circle-o fa-2x"></span></br>Інформація в точці</button></td>
+    <td><button><span class="fa fa-eraser fa-2x"></span></br>Очистити карту</button></td>
+  </tr>
+  <tr>
+    <td><button><span class="fa fa-arrows-h fa-2x"></span></br>Виміри</button></td>
+    <td><button><span class="fa fa-square-o fa-2x"></span></br>Інформація в полігоні</button></td>
+    <td><button><span class="fa fa-database fa-2x"></span></br>База даних</button></td>
+  </tr>
+     <tr>
+    <td><button onclick =ad_lyr()><span class="fa fa-circle-thin fa-2x"></span></br>Шторка</button></td>
+    <td><button><span class="fa fa-download fa-2x"></span></br>Завантажити PDF</button></td>
+    <td><button><span class="fa fa-database fa-2x"></span></br>База даних</button></td>
+  </tr>
+       </table></div>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      <h3>Menu 1</h3>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>Menu 2</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <h3>Menu 3</h3>
+      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+  </div>
+</div>
+    </div>
+    </div>
+    </div>
+
+        {% endblock %}
+
+</body>
+</html>

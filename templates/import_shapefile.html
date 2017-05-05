@@ -1,0 +1,19 @@
+<html>
+<head>
+<title> S h a p e E d ito r</title>
+</head>
+<body>
+<p>Импорт файла фигур</p>
+<form enctype="multipart/form-data" method="post" action="import">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="0тправить"/>
+    {% if errMsg %}
+<b><i> {{ errMsg }} </i></b>
+{% endif %}
+<button type="button"
+onClick='window.location = "/shape-editor";'>
+Отменить
+</button>
+</form>
+</body>
+</html>

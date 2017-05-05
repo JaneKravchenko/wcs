@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Карта</title>
+</head>
+<body>
+{%  block content %}
+    <div id = "map" class = 'map' >
+
+    <div id = "map2" class = 'map2' >
+    </div>
+
+    </div>
+    <script src="{% static "wcs/js/load_map.js"%}"></script>
+
+
+{% endblock %}
+</body>
+</html>
