@@ -82,18 +82,39 @@ div.panel, div.panel-default {
 }
 
 #panel  > li.active > a{
-    color: rgba(3, 129, 106, 0.84);
+    color: rgba(137,37,207,1);
 }
 a{
     color: grey;
 }
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
-    color: rgba(3, 129, 106, 0.84);
+    color: rgba(137,37,207,1);
 }
 .container{
     width: 400px;
     height: 300px;
 
+}
+#nav{
+  background-color: rgba(137,37,207,1);
+
+
+}
+
+a.dropdown-toggle{
+  color: white;
+
+
+}
+.navbar-default .navbar-nav > li > a{
+  color: white;
+}
+.navbar-default .navbar-brand{
+  color: white;
+}
+
+ul.dropdown-menu li a{
+  color: rgba(137,37,207,1);
 }
 
 .nav-tabs > li.active > a, a.activate{
@@ -111,7 +132,7 @@ div.list-group{
     margin-top: 10px;
     margin-left: 120px;
     width: 160px;
-    background-color: rgba(3, 129, 106, 0.84);
+    background-color: rgba(137,37,207,1);
     border:none;
 }
 #panel-list label{
@@ -124,7 +145,7 @@ div.list-group{
 }
 #instruments button{
     background-color: transparent;
-    color: rgba(3, 129, 106, 0.84);
+    color: rgba(137,37,207,1);
     border: none;
     width: 120px;
     height: 120px;
@@ -139,42 +160,42 @@ div.list-group{
 }
 
 .ol-control button {
-    background-color: rgba(3, 129, 106, 0.84);
+    background-color: rgba(137,37,207,1);
 }
 
-#instruments_back button{
+#instruments_back button, #instruments_transparent button{
     width: 130px;
     height: 130px;
     background-color: transparent;
     border: none;
-    color: rgba(3, 129, 106, 0.84);
+    color: rgba(137,37,207,1);
 
 
 }
-#instruments_back button:hover{
+#instruments_back button:hover, #instruments_transparent button:hover{
    background-color: rgba(0,0,0,0.05);
 }
-#instruments_back{
+#instruments_back, #instruments_transparent{
     margin-left: 20px;
     text-align: left;
 visibility: hidden;
     height: 0;
 }
-#slider{
+#slider, #slider_transparent{
     border-radius: 0;
     background-color: #0d3349;
 	left: 5px;
 	width: 350px;
 }
 
-div#slider.ui-slider.ui-corner-all.ui-slider-horizontal.ui-widget.ui-widget-content{
+div#slider.ui-slider.ui-corner-all.ui-slider-horizontal.ui-widget.ui-widget-content, div#slider_transparent.ui-slider.ui-corner-all.ui-slider-horizontal.ui-widget.ui-widget-content{
 
 	height: 25px;
 	border-radius: 0;
-	background: rgba(3, 129, 106, 0.8);
+	background: rgba(137,37,207,1);
 	border: none;
 	margin-bottom: 20px;
-	color: rgba(3, 129, 106, 0.84);
+	color: rgba(137,37,207,1);
 	border-radius: 3px;
 
 }
@@ -191,8 +212,7 @@ span.ui-slider-handle.ui-corner-all.ui-state-default{
 }
 
 span.ui-slider:hover{
-	background: rgba(3, 129, 106, 0.84);
-
+	background: rgba(137,37,207,1);
 }
 
 span.ui-state-default.ui-widget-content.ui-state-default:hover{
@@ -200,6 +220,77 @@ span.ui-state-default.ui-widget-content.ui-state-default:hover{
 	border: none;
 }
 
-span#contentSlider{
+span#contentSlider, span#contentSlider_transparent{
     margin-left: 25px;
+}
+
+#list-group{
+    overflow-y: auto;
+    overflow-x:none;
+    height:45vh;
+    width: 26vw;
+
+}
+.list-group-item{
+    min-width: 400px;
+
+}
+
+#active_layer{
+    overflow-y: auto;
+    overflow-x:none;
+    height:45vh;
+    width: 26vw;
+
+}
+
+      .ol-popup {
+        position: absolute;
+        background-color: white;
+        -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+        filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        bottom: 12px;
+        left: -50px;
+        min-width: 280px;
+      }
+      .ol-popup:after, .ol-popup:before {
+        top: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+      .ol-popup:after {
+        border-top-color: white;
+        border-width: 10px;
+        left: 48px;
+        margin-left: -10px;
+      }
+      .ol-popup:before {
+        border-top-color: #cccccc;
+        border-width: 11px;
+        left: 48px;
+        margin-left: -11px;
+      }
+      .ol-popup-closer {
+        text-decoration: none;
+        position: absolute;
+        top: 2px;
+        right: 8px;
+      }
+      .ol-popup-closer:after {
+        content: "✖";
+      }
+      div#popup-content{
+        overflow: auto;
+        height: 400px;
+      }
+
+label{
+  font-weight:normal;
 }

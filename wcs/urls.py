@@ -21,11 +21,14 @@ from django.contrib.auth.views import login, logout
 
 urlpatterns = [
     url(r'^$', views.main, name='main'),
-    url(r'^shape', views.list_shapefiles),
+    url(r'^import/shape', views.list_shapefiles),
     url(r'^import', views.import_shapefile),
+url(r'^raster', views.upload_file),
     url(r'^golovna', views.golovna),
 url(r'^dopomoga', views.dopomoga),
 url(r'^karta', views.karta),
 url(r'^pro_proect', views.pro_proect),
+url(r'^inform_point', views.inform_point),
+
 
 ]

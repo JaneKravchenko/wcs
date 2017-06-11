@@ -1,31 +1,50 @@
 from __future__ import unicode_literals
 
 from django.contrib.gis.db import models
-class Shapefile(models.Model):
-    filename = models.CharField(max_length=255)
-    srs_wkt = models.CharField(max_length=255)
-    geom_type = models.CharField(max_length=50)
-class Attribute(models.Model):
-    shapefile = models. ForeignKey (Shapefile)
-    name = models.CharField(max_length=255)
-    type = models.IntegerField()
-    width = models.IntegerField()
-    precision = models.IntegerField()
-class Feature(models.Model):
-    shapefile = models.ForeignKey(Shapefile)
-    geom_point = models.PointField(srid=4326,
-         blank=True, null=True)
-    geom_multipoint = models.MultiPointField(srid=4326,
-              blank=True, null=True)
-    geom_multilinestring = models.MultiLineStringField(srid=4326,
-         blank=True, null=True)
-    geom_multipolygon = models.MultiPolygonField(srid=4326,
-                     blank=True, null=True)
-    geom_geometrycollection = models.GeometryCollectionField(srid=4326, blank = True,null = True)
-    objects = models.GeoManager()
 
-class AttributeValue(models.Model):
-    feature= models.ForeignKey(Feature)
-    attribute = models.ForeignKey(Attribute)
-    value = models.CharField(max_length=255,
-                       blank=True, null=True)
+class Styles(models.Model):
+    style_name = models.CharField(max_length = 255, null = False, primary_key=True)
+    legend = models.CharField(max_length = 255, null = True)
+
+
+class Nature_Reserve_Found(models.Model):
+    gid = models.IntegerField(primary_key = True, null = False)
+    prot_class = models.CharField(max_length=80, null = True)
+    prot_stat = models.CharField(max_length=80, null = True)
+    prot_title = models.CharField(max_length=99, null = True)
+    amenity = models.CharField(max_length=80, null = True)
+    leisure = models.CharField(max_length=80, null = True)
+    landuse = models.CharField(max_length=80, null = True)
+    historic = models.CharField(max_length=80, null = True)
+    tourism = models.CharField(max_length=80, null = True)
+    website = models.CharField(max_length=110, null = True)
+    wikipedia = models.CharField(max_length=103, null = True)
+    note = models.CharField(max_length=80, null = True)
+    area = models.FloatField(null = True)
+    geom = models.MultiPolygonField(null = False)
+
+class Transalte_Name(models.Model):
+    id = models.IntegerField(primary_key = True, null = False)
+    name = models.CharField(max_length=177, null = True)
+    name_uk = models.CharField(max_length=177, null = True)
+    name_ru = models.CharField(max_length=177, null = True)
+    name_en = models.CharField(max_length=177, null = True)
+
+
+class Attribute(models.Model):
+    translate_name = models.CharField(max_length=255, null = False, primary_key=True)
+    name_uk = models.CharField(max_length=255, null = True)
+    sql= models.CharField(max_length=255, null=True)
+    wms = models.CharField(max_length=255, null=True)
+    name_geoserver = models.CharField(max_length=255, null=True)
+    db_name = models.CharField(max_length=255, null=True)
+    note = models.CharField(max_length=255, null=True)
+    req = models.CharField(max_length=255, null=True)
+    style=models.CharField(max_length=255, null=True)
+
+
+
+
+
+
+

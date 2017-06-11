@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,18 +11,13 @@
 <body>
 {% block content %}
 
-    <div class="panel panel-default" id = "panel-map">
-  <div class="panel-body">
-    <div class = "map" id = "map">
-    </div></div></div>
-     <script src="{% static "wcs/js/load_map.js"%}"></script>
      <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid" id = "nav">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">ПЗФ України</a>
     </div>
     <ul class="nav navbar-nav" >
-      <li class="active"><a href="#">Головна</a></li>
+      <li ><a href="#">Головна</a></li>
       <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Карта
         <span class="caret"></span></a>
@@ -44,9 +40,9 @@
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Завантажити на портал
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">Шейп</a></li>
-          <li><a href="#">Растр</a></li>
-          <li><a href="#">Page 1-3</a></li>
+          <li><a   href="/import/">Шейп</a></li>
+          <li><a href="/raster/">Растр</a></li>
+
         </ul>
       </li>
       <li><a href="#">Про портал</a></li>
@@ -54,6 +50,18 @@
     </ul>
   </div>
 </nav>
+    {% block main %}
+        <div class="panel panel-default" id = "panel-map">
+  <div class="panel-body">
+    <div class = "map" id = "map">
+    </div>
+<div id="popup" class="ol-popup">
+      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+      <div id="popup-content"></div>
+    </div>
+
+    </div></div>
+     
     <div class="panel panel-default" id = "panel-list">
   <div class="panel-body">
       <form>
@@ -71,14 +79,16 @@
   <ul class="nav nav-tabs" >
     <li class="active"><a data-toggle="tab" href="#home">Інструменти</a></li>
     <li><a data-toggle="tab" href="#menu1">Додати</a></li>
-    <li><a data-toggle="tab" href="#menu2">Активні</a></li>
-      <li><a data-toggle="tab" href="#menu2">Легенда</a></li>
+    <li><a id = 'active_lyr' data-toggle="tab" href="#menu2">Активні</a></li>
+  
 
   </ul>
 
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
 
+        <p id = 'geometry' style = "visibility: hidden; height: 0;">{{ cs }}</p>
+<!-- Блок Ш Т О Р К А instruments_back --> 
         <div id = "instruments_back">
             <h3>Шторка</h3>
             <h4>Ви використовуєте функцію шторка. Наведіть на об’єкт, до якого Ви хочете застосувати дану функцію.</h4>
@@ -87,13 +97,34 @@
             <div id="slider"></div>
             <script type = "text/javascript" src = {% static "wcs/js/slider.js" %}></script>
         <button  onclick = del_lyr()><span class="fa fa-arrow-circle-o-left fa-2x"></span></br>Назад</button></div>
+
+<!-- <Ш Т О Р К А > --> 
+
+
+<!-- Блок П Р О З О Р І С Т Ь instruments_transparent --> 
+        <div id = "instruments_transparent">
+            <h3>Прозорість</h3>
+            <h4>Ви використовуєте функцію прозорість шару. Оберіть об'єкт до якого бажаєте застосувати функцію та оберіть потрібну позицію слайдера. Повернути вигляд шарів в попередній стан можна натиснувши на кнопку "Скинути прозорість", котра знаходиться знизу.</h4>
+            <p><select id = 'all_lyr'>
+            </select></p>
+                 Рівень прозорості:
+
+            <span id="contentSlider_transparent"></span> %
+            <div id="slider_transparent"></div>
+            <script type = "text/javascript" src = {% static "wcs/js/slider.js" %}></script>
+        <button  onclick = del_lyr()><span class="fa fa-arrow-circle-o-left fa-2x"></span></br>Назад</button></div>
+
+<!-- П Р О З О Р І С Т Ь  --> 
+
+
+
         <div id = "instruments">
         <table>
             <h3>Оберіть дію</h3>
       <tr>
-    <td><button onclick = del_lyr()><span class="fa fa-eye fa-2x"></span></br>Прозорість</button></td>
-    <td><button onclick = ad_lyr()><span class="fa fa-dot-circle-o fa-2x"></span></br>Інформація в точці</button></td>
-    <td><button><span class="fa fa-eraser fa-2x"></span></br>Очистити карту</button></td>
+    <td><button onclick = transparent_lyr()><span class="fa fa-eye fa-2x"></span></br>Прозорість</button></td>
+    <td><button onclick = information_point()><span class="fa fa-dot-circle-o fa-2x"></span></br>Інформація в точці</button></td>
+    <td><button onclick = remove_map()><span class="fa fa-eraser fa-2x"></span></br>Очистити карту</button></td>
   </tr>
   <tr>
     <td><button><span class="fa fa-arrows-h fa-2x"></span></br>Виміри</button></td>
@@ -102,18 +133,27 @@
   </tr>
      <tr>
     <td><button onclick =ad_lyr()><span class="fa fa-circle-thin fa-2x"></span></br>Шторка</button></td>
-    <td><button><span class="fa fa-download fa-2x"></span></br>Завантажити PDF</button></td>
+    <td><button ><span class="fa fa-download fa-2x"></span></br>Завантажити PDF</button></td>
     <td><button><span class="fa fa-database fa-2x"></span></br>База даних</button></td>
   </tr>
        </table></div>
     </div>
     <div id="menu1" class="tab-pane fade">
-      <h3>Menu 1</h3>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <h3>Список доступних шарів для завантаження на карту</h3>
+    <div class="list-group" id = 'list-group'>
+       {% for i in att %}
+           <button class="list-group-item" id = '{{ i.translate_name }}' onclick = load_layer('{{i.sql}}','{{i.req}}','{{i.wms}}','{{i.name_geoserver}}','{{ i.translate_name }}')><span class="fa fa-download" aria-hidden="true"></span>'{{ i.name_uk }}'</button>
+
+
+
+        {% endfor %}
+    </div>
     </div>
     <div id="menu2" class="tab-pane fade">
-      <h3>Menu 2</h3>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+      <h3>Список активних шарів, котрі присутні на карті</h3>
+      <div id  = 'active_layer' class="list-group">
+      </div>
+      
     </div>
     <div id="menu3" class="tab-pane fade">
       <h3>Menu 3</h3>
@@ -125,7 +165,127 @@
     </div>
     </div>
 
-        {% endblock %}
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">ЗАВАНТАЖЕННЯ РАСТРУ</h4>
+        <h5>Зверніть увагу! Вт можете завантажити растр у форматі GeoTIFF. </h5>
+      </div>
+      <div class="modal-body" id = "modal-body">
+        <form enctype="multipart/form-data" method="post" action="import">{% csrf_token %}
+            <div class="form-group row">
+  <label for="example-color-input" class="col-2 col-form-label">Color</label>
+  <div class="col-10">
+    <input class="form-control" type="color" value="#563d7c" id="example-color-input">
+  </div>
+</div>
+{{ form.as_p }}
+
+</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id = "btn_close">Close</button>
+        <button type="button" class="btn btn-primary"  onclick = load_dem() >Завантажити</button>
+      </div>
+    </div>
+  </div>
+</div>
+{%for i in att%}
+   <div class="modal fade" id="{{i.translate_name}}info-window" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h4 class="modal-title">{{i.name_uk}}</h4>
+      </div>
+      <div class = "madal-body">
+      <div style = 'margin-left: 70px; margin-right: 70px;'>
+        {{i.note}}
+      </div>
+
+      
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+      </div>
+      </div>
+      </div>
+      </div>
+
+
+    
+
+{%endfor%}
+
+    <script src="{% static "wcs/js/load_map.js"%}"></script>
+    <script>
+
+
+
+
+
+
+
+if (document.getElementById('geometry').innerHTML!==''){
+    parse_json();}
+
+function load_layer(sql, req, wms, name_geoserver, translate_name){
+$('#'+translate_name).css('color', 'grey');
+$('#'+translate_name).css('background-color', 'rgba(0,0,0,0.1)');
+$('#'+translate_name).prop('disabled', true);
+
+    var filterParams = {
+    'FILTER': null,
+    'CQL_FILTER': null,
+    'FEATUREID': null
+};
+       filterParams["CQL_FILTER"] = sql+" = "+ "'"+req+"'";
+
+    var tiled = new ol.layer.Tile({
+        name: translate_name,
+        visible: true,
+        source: new ol.source.TileWMS({
+          url: wms,
+          params: {'FORMAT': 'image/png',
+                   'VERSION': '1.1.1',
+                   tiled: true,
+                STYLES: '',
+                LAYERS: name_geoserver,
+             tilesOrigin: 27.999861111111112 + "," + 47.99986111111111
+          }
+        })
+      });
+    if (sql !== '') {
+
+
+        tiled.getSource().updateParams(filterParams);
+    }
+    else{
+        console.log('sql is none');
+    }
+map.addLayer(tiled);
+{%for i in att%}
+if ('{{i.translate_name}}' === translate_name){
+  var name = '{{i.name_uk}}';
+  var style = '{{i.style}}';
+}
+{%endfor%}
+
+document.getElementById('active_layer').innerHTML += "<div class='list-group-item' id = '"+translate_name+"2'><button  class = 'btn btn-default' style = 'color: rgba(137,37,207,1);' onclick = remove_layer('"+translate_name+"')><span class='fa fa-times' aria-hidden='true'></span></button> <button style = 'color: rgba(137,37,207,1);' class = 'btn btn-default' data-toggle='modal' data-target='#"+translate_name+"info-window'><span class='fa fa-info-circle' aria-hidden='true'></span></button> <button  style = 'color: rgba(137,37,207,1);' class = 'btn btn-default' data-toggle='collapse' data-target='#"+translate_name+"collapseExample' aria-expanded='false' aria-controls='"+translate_name+"collapseExample' ><span class='fa fa-paint-brush' aria-hidden='true'></span></button> <button class = 'btn btn-default' style = 'color: rgba(137,37,207,1);' data-toggle='collapse' data-target='#"+translate_name+"collapseExample2' aria-expanded='false' aria-controls='"+translate_name+"collapseExample2' ><span class='fa fa-cog' aria-hidden='true'></span></button><br/><input type = 'checkbox' class = 'checkbox-an' id = '"+translate_name+"' value = '"+translate_name+"' checked = 'true'><label for = '"+translate_name+"'>"+name+"</label><div class='collapse' id='"+translate_name+"collapseExample'><div class='well'><img width = '320px'  src = '/static/wcs/img/legend/"+style+".png' alt = ''/></div></div></div><div class='collapse' id='"+translate_name+"collapseExample2'><div class='well'></div></div>";
+
+
+
+check_check(translate_name);
+
+}
+    </script>
+
+
+        {% endblock %}
+ {% endblock %}
 </body>
 </html>

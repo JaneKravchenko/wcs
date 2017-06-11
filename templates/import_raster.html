@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "pro_proect.html" %}
+{% load staticfiles %}
+<html>
+<head>
+    {% block main %}
+<title>Завантаження</title>
+      <link rel="stylesheet" type="text/css" href="{% static "wcs/libs/OpenLayers3/ol.css" %}">
+      <link rel="stylesheet" href="{% static "wcs/libs/bootstrap/css/bootstrap.min.css" %}">
+      <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
+      <script src="http://code.jquery.com/jquery-latest.js"></script>
+      <script type="text/javascript" src="{% static "wcs/libs/simple-calendar/tcal_en.js" %}"></script>
+      <script src = "{% static "wcs/libs/jquery-3.1.1.min.js"%}" type = "text/javascript"></script>
+      <script src="{% static "wcs/libs/jquery-ui/jquery-ui.js"%}"></script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+      <script src="{% static "wcs/libs/OpenLayers3/ol.js"%}"></script>
+      <script src="{% static "wcs/libs/bootstrap/js/bootstrap.min.js"%}" type = 'text/javascript'></script>
+
+        <style >
+
+        #import{
+            margin-top:80px;
+        }
+        </style>
+        </head>
+<body>
+<div class = 'col-md-offset-3 col-lg-offset-3 col-xs-offset-3 col-md-6 col-xs-6 col-lg-6' id = "import">
+     <h1>Завантаження растру на портал</h1><small><a data-toggle="modal" data-target="#myModal">(Детальніше)</a></small>
+<form enctype="multipart/form-data" method="post" action="/raster">{% csrf_token %}
+<div class="form-group rows ">
+{{ form.as_p }}
+    <div id = 'image'>
+    </div>
+
+</div>
+<button class="btn btn-primary" onclick = read_json()>Завантажити та повернутися до карти</button>
+    <button class = 'btn btn-secondary' type="button"
+onClick='window.location = "/pro_proect";'>Назад
+</button>
+</form>
+</div>
+<script>
+    function read_json(){
+        console.log('uploaded');
+    }
+    $('#id_style_select').on('change', function() {
+        document.getElementById('image').innerHTML = " ";
+        document.getElementById('image').innerHTML = '<img src = "/static/wcs/img/legend/'+this.value+'.png" alt = " "/>';
+  console.log( '<img src = "/static/wcs/img/legend/"'+this.value+'.png" alt = " "/>' );
+});
+</script>
+</body>
+{% endblock %}
+</html>
